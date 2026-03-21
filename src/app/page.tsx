@@ -10,21 +10,87 @@ interface Agent {
   rating: number;
   reviews: number;
   price: string;
-  capabilities: string[];
   creator: string;
-  installs: number;
+  capabilities: string[];
+  deployed: number;
 }
 
 const agents: Agent[] = [
-  { id: '1', name: 'CodeAssist Pro', description: 'Full-stack coding assistant with debugging and deployment', category: 'Development', rating: 4.9, reviews: 2450, price: '$29/mo', capabilities: ['Code generation', 'Debugging', 'Testing', 'Deployment'], creator: 'DevTools Inc', installs: 45000 },
-  { id: '2', name: 'DataAnalyst AI', description: 'Automated data analysis, visualization, and insights', category: 'Analytics', rating: 4.7, reviews: 1820, price: '$49/mo', capabilities: ['SQL queries', 'Visualization', 'Reports', 'ML models'], creator: 'DataCorp', installs: 32000 },
-  { id: '3', name: 'ContentWriter Plus', description: 'SEO-optimized content generation for blogs and marketing', category: 'Content', rating: 4.8, reviews: 3200, price: '$19/mo', capabilities: ['Blog posts', 'SEO', 'Social media', 'Email'], creator: 'WriteAI', installs: 78000 },
-  { id: '4', name: 'CustomerSupport Bot', description: '24/7 automated customer service with sentiment analysis', category: 'Support', rating: 4.6, reviews: 980, price: '$99/mo', capabilities: ['Live chat', 'Ticket routing', 'Knowledge base', 'Analytics'], creator: 'SupportAI', installs: 15000 },
-  { id: '5', name: 'ResearchAssistant', description: 'Academic research, paper summarization, and citations', category: 'Research', rating: 4.9, reviews: 1560, price: '$15/mo', capabilities: ['Paper search', 'Summarization', 'Citations', 'Writing'], creator: 'AcademicAI', installs: 28000 },
-  { id: '6', name: 'TradingBot Alpha', description: 'Automated crypto trading with risk management', category: 'Finance', rating: 4.5, reviews: 890, price: '$199/mo', capabilities: ['Auto trading', 'Risk mgmt', 'Signals', 'Portfolio'], creator: 'QuantAI', installs: 8500 },
+  {
+    id: '1',
+    name: 'CodeAssist Pro',
+    description: 'Full-stack development agent with code review, testing, and deployment capabilities.',
+    category: 'Development',
+    rating: 4.9,
+    reviews: 2450,
+    price: '$49/mo',
+    creator: 'DevTools Inc',
+    capabilities: ['Code Review', 'Testing', 'Deployment', 'Documentation'],
+    deployed: 12500,
+  },
+  {
+    id: '2',
+    name: 'DataAnalyst AI',
+    description: 'Advanced data analysis, visualization, and reporting agent.',
+    category: 'Analytics',
+    rating: 4.8,
+    reviews: 1890,
+    price: '$79/mo',
+    creator: 'AnalyticsCo',
+    capabilities: ['SQL', 'Python', 'Visualization', 'Reports'],
+    deployed: 8900,
+  },
+  {
+    id: '3',
+    name: 'ContentWriter',
+    description: 'SEO-optimized content creation, blog posts, and marketing copy.',
+    category: 'Marketing',
+    rating: 4.7,
+    reviews: 3200,
+    price: '$29/mo',
+    creator: 'WriteAI Labs',
+    capabilities: ['Blog Posts', 'SEO', 'Social Media', 'Copywriting'],
+    deployed: 25000,
+  },
+  {
+    id: '4',
+    name: 'CustomerSupport Bot',
+    description: '24/7 customer support with multi-language support and escalation.',
+    category: 'Support',
+    rating: 4.6,
+    reviews: 4500,
+    price: '$99/mo',
+    creator: 'SupportAI',
+    capabilities: ['Chat', 'Email', 'Tickets', 'Escalation'],
+    deployed: 18000,
+  },
+  {
+    id: '5',
+    name: 'ResearchAssistant',
+    description: 'Academic and market research with citation management.',
+    category: 'Research',
+    rating: 4.8,
+    reviews: 890,
+    price: '$59/mo',
+    creator: 'ResearchLab',
+    capabilities: ['Literature Review', 'Citations', 'Summaries', 'Analysis'],
+    deployed: 4500,
+  },
+  {
+    id: '6',
+    name: 'TradingBot',
+    description: 'Automated trading signals and portfolio management.',
+    category: 'Finance',
+    rating: 4.5,
+    reviews: 1200,
+    price: '$199/mo',
+    creator: 'FinanceAI',
+    capabilities: ['Signals', 'Portfolio', 'Risk Management', 'Backtesting'],
+    deployed: 3200,
+  },
 ];
 
-const categories = ['All', 'Development', 'Analytics', 'Content', 'Support', 'Research', 'Finance'];
+const categories = ['All', 'Development', 'Analytics', 'Marketing', 'Support', 'Research', 'Finance'];
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -48,11 +114,11 @@ export default function Home() {
         <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="bg-gray-900 border-4 border-violet-400 p-4 text-center">
             <div className="text-3xl font-black text-violet-400">5,700+</div>
-            <div className="text-sm text-gray-400">AI Agents</div>
+            <div className="text-sm text-gray-400">Agents</div>
           </div>
           <div className="bg-gray-900 border-4 border-gray-700 p-4 text-center">
-            <div className="text-3xl font-black">206K</div>
-            <div className="text-sm text-gray-400">Total Installs</div>
+            <div className="text-3xl font-black">72K+</div>
+            <div className="text-sm text-gray-400">Deployments</div>
           </div>
           <div className="bg-gray-900 border-4 border-gray-700 p-4 text-center">
             <div className="text-3xl font-black text-green-400">4.7</div>
@@ -83,7 +149,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Agents Grid */}
+        {/* Agent Grid */}
         <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredAgents.map((agent) => (
             <div
@@ -95,30 +161,40 @@ export default function Home() {
             >
               <div className="p-4">
                 <div className="flex justify-between items-start mb-2">
-                  <div>
-                    <h3 className="font-bold text-violet-400">{agent.name}</h3>
-                    <p className="text-xs text-gray-500">{agent.creator}</p>
-                  </div>
+                  <h3 className="font-bold text-violet-400 text-lg">{agent.name}</h3>
                   <span className="px-2 py-1 text-xs font-bold bg-violet-900/50 text-violet-400">
                     {agent.category}
                   </span>
                 </div>
                 <p className="text-sm text-gray-400 mb-3 line-clamp-2">{agent.description}</p>
+                
                 <div className="flex items-center gap-2 mb-3">
                   <span className="text-yellow-400">★</span>
                   <span className="font-bold">{agent.rating}</span>
-                  <span className="text-gray-500">({agent.reviews} reviews)</span>
+                  <span className="text-gray-500">({agent.reviews.toLocaleString()} reviews)</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="font-bold text-green-400">{agent.price}</span>
-                  <span className="text-xs text-gray-500">{agent.installs.toLocaleString()} installs</span>
+
+                <div className="flex flex-wrap gap-1 mb-3">
+                  {agent.capabilities.slice(0, 3).map((cap) => (
+                    <span key={cap} className="px-2 py-1 text-xs bg-gray-800 text-gray-400">
+                      {cap}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex justify-between items-center pt-3 border-t border-gray-700">
+                  <div>
+                    <div className="text-xs text-gray-500">by {agent.creator}</div>
+                    <div className="text-xs text-gray-500">{agent.deployed.toLocaleString()} deployed</div>
+                  </div>
+                  <div className="font-bold text-green-400">{agent.price}</div>
                 </div>
               </div>
             </div>
           ))}
         </section>
 
-        {/* Agent Details */}
+        {/* Selected Agent Details */}
         {selectedAgent && (
           <section className="bg-gray-900 border-4 border-violet-400 p-6">
             <div className="flex justify-between items-start mb-4">
@@ -146,12 +222,12 @@ export default function Home() {
                 <div className="text-2xl font-bold">{selectedAgent.reviews.toLocaleString()}</div>
               </div>
               <div className="p-4 bg-gray-800 border border-gray-700">
-                <div className="text-sm text-gray-400">Price</div>
-                <div className="text-2xl font-bold text-green-400">{selectedAgent.price}</div>
+                <div className="text-sm text-gray-400">Deployed</div>
+                <div className="text-2xl font-bold">{selectedAgent.deployed.toLocaleString()}</div>
               </div>
               <div className="p-4 bg-gray-800 border border-gray-700">
-                <div className="text-sm text-gray-400">Installs</div>
-                <div className="text-2xl font-bold">{selectedAgent.installs.toLocaleString()}</div>
+                <div className="text-sm text-gray-400">Price</div>
+                <div className="text-2xl font-bold text-green-400">{selectedAgent.price}</div>
               </div>
             </div>
 
@@ -167,34 +243,34 @@ export default function Home() {
             </div>
 
             <button className="w-full py-4 bg-violet-500 text-white font-bold border-4 border-violet-400 hover:bg-violet-400">
-              Install Agent
+              Deploy Agent
             </button>
           </section>
         )}
 
         {/* How It Works */}
         <section className="bg-gray-900 border-4 border-gray-700 p-6">
-          <h2 className="text-xl font-black mb-4">How AI Agent Marketplace Works</h2>
+          <h2 className="text-xl font-black mb-4">How It Works</h2>
           <div className="grid md:grid-cols-4 gap-4">
             <div className="p-4 bg-gray-800 border-2 border-gray-600 text-center">
               <div className="text-2xl mb-2">1️⃣</div>
-              <h3 className="font-bold text-violet-400 mb-2">Discover</h3>
-              <p className="text-xs text-gray-400">Browse 5,700+ AI agents</p>
+              <h3 className="font-bold text-violet-400 mb-2">Browse</h3>
+              <p className="text-xs text-gray-400">Find the perfect agent</p>
             </div>
             <div className="p-4 bg-gray-800 border-2 border-gray-600 text-center">
               <div className="text-2xl mb-2">2️⃣</div>
               <h3 className="font-bold text-blue-400 mb-2">Deploy</h3>
-              <p className="text-xs text-gray-400">One-click installation</p>
+              <p className="text-xs text-gray-400">One-click deployment</p>
             </div>
             <div className="p-4 bg-gray-800 border-2 border-gray-600 text-center">
               <div className="text-2xl mb-2">3️⃣</div>
-              <h3 className="font-bold text-green-400 mb-2">Integrate</h3>
-              <p className="text-xs text-gray-400">Connect to your workflows</p>
+              <h3 className="font-bold text-green-400 mb-2">Configure</h3>
+              <p className="text-xs text-gray-400">Customize for your needs</p>
             </div>
             <div className="p-4 bg-gray-800 border-2 border-gray-600 text-center">
               <div className="text-2xl mb-2">4️⃣</div>
-              <h3 className="font-bold text-yellow-400 mb-2">Monetize</h3>
-              <p className="text-xs text-gray-400">Earn from your agents</p>
+              <h3 className="font-bold text-yellow-400 mb-2">Scale</h3>
+              <p className="text-xs text-gray-400">Grow with your business</p>
             </div>
           </div>
         </section>
