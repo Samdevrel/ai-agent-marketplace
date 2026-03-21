@@ -3,8 +3,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "AI Agent Marketplace | @samdevrel",
-  description: "Discover and deploy autonomous AI agents for research, development, business, and more.",
-  keywords: ["AI agent", "marketplace", "agentic AI", "automation", "productivity"],
+  description: "Discover, deploy, and scale AI agents for your workflows. Customer service, code review, research, and more.",
+  keywords: ["AI agent", "marketplace", "OpenAI", "automation", "chatbot"],
   authors: [{ name: "Sam", url: "https://x.com/samdevrel" }],
 };
 
